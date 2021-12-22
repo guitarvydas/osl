@@ -14,7 +14,7 @@ var traceDepth;
 var ohm = require ('ohm-js');
 var support;
 
-const glueGrammar =
+const oslGrammar =
       String.raw`
 SemanticsSCL {
   Semantics = semanticsStatement+
@@ -62,30 +62,30 @@ SemanticsSCL {
 var varNameStack = [];
 
 
-var glueSemantics = {	
+var oslSemantics = {	
     Semantics: function (_1s) { 
-	var __1s = _1s._glue ().join (''); 
+	var __1s = _1s._osl ().join (''); 
 	return `
 {
 ${__1s}
 _terminal: function () { return this.sourceString; },
-_iter: function (...children) { return children.map(c => c._glue ()); }
+_iter: function (...children) { return children.map(c => c._osl ()); }
 }`; 
     },
     semanticsStatement: function (_1, _2s, _3, _4s, _5, _6, _7s, _8, _9s, _10s, _11, _12s) {
 	varNameStack = [];
-	var __1 = _1._glue ();
-	var __2s = _2s._glue ().join ('');
-	var __3 = _3._glue ();
-	var __4s = _4s._glue ().join ('');
-	var __5 = _5._glue ();
-	var __6 = _6._glue ();
-	var __7s = _7s._glue ().join ('');
-	var __8 = _8._glue ();
-	var __9s = _9s._glue ().join ('');
-	var __10s = _10s._glue ().join ('');
-	var __11 = _11._glue ();
-	var __12s = _12s._glue ().join ('');
+	var __1 = _1._osl ();
+	var __2s = _2s._osl ().join ('');
+	var __3 = _3._osl ();
+	var __4s = _4s._osl ().join ('');
+	var __5 = _5._osl ();
+	var __6 = _6._osl ();
+	var __7s = _7s._osl ().join ('');
+	var __8 = _8._osl ();
+	var __9s = _9s._osl ().join ('');
+	var __10s = _10s._osl ().join ('');
+	var __11 = _11._osl ();
+	var __12s = _12s._osl ().join ('');
 	return `
 ${__1} : function (${__5}) { 
 _ruleEnter ("${__1}");
@@ -97,40 +97,40 @@ return _result;
 },
             `;
     },
-    ruleName: function (_1, _2s) { var __1 = _1._glue (); var __2s = _2s._glue ().join (''); return __1 + __2s; },
-    parameters: function (_1s) {  var __1s = _1s._glue ().join (','); return __1s; },
+    ruleName: function (_1, _2s) { var __1 = _1._osl (); var __2s = _2s._osl ().join (''); return __1 + __2s; },
+    parameters: function (_1s) {  var __1s = _1s._osl ().join (','); return __1s; },
     
     parameter: function (_1) { 
-	var __1 = _1._glue ();
+	var __1 = _1._osl ();
 	return `${__1}`;
     },
     flatparameter: function (_1) { 
-	var __1 = _1._glue (); 
-	varNameStack.push (`var ${__1} = _${__1}._glue ();`);
+	var __1 = _1._osl (); 
+	varNameStack.push (`var ${__1} = _${__1}._osl ();`);
 	return `_${__1}`;
     },
-    fpws: function (_1, _2s) { var __1 = _1._glue (); var __2s = _2s._glue ().join (''); return __1; },
-    fpd: function (_1, _2) { var __1 = _1._glue (); var __2 = _2._glue (); return __1; },
+    fpws: function (_1, _2s) { var __1 = _1._osl (); var __2s = _2s._osl ().join (''); return __1; },
+    fpd: function (_1, _2) { var __1 = _1._osl (); var __2 = _2._osl (); return __1; },
     
     treeparameter: function (_1, _2) { 
-	var __1 = _1._glue (); 
-	var __2 = _2._glue (); 
-	varNameStack.push (`var ${__2} = _${__2}._glue ().join ('');`);
+	var __1 = _1._osl (); 
+	var __2 = _2._osl (); 
+	varNameStack.push (`var ${__2} = _${__2}._osl ().join ('');`);
 	return `_${__2}`; 
     },
     tflatparameter: function (_1) { 
-	var __1 = _1._glue (); 
+	var __1 = _1._osl (); 
 	return `${__1}`;
     },
-    tfpws: function (_1, _2s) { var __1 = _1._glue (); var __2s = _2s._glue ().join (''); return __1; },
-    tfpd: function (_1, _2) { var __1 = _1._glue (); var __2 = _2._glue (); return __1; },
+    tfpws: function (_1, _2s) { var __1 = _1._osl (); var __2s = _2s._osl ().join (''); return __1; },
+    tfpd: function (_1, _2) { var __1 = _1._osl (); var __2 = _2._osl (); return __1; },
 
-    pname: function (_1, _2s) { var __1 = _1._glue (); var __2s = _2s._glue ().join (''); return __1 + __2s;},
-    rewrites: function (_1) { var __1 = _1._glue (); return __1; },
+    pname: function (_1, _2s) { var __1 = _1._osl (); var __2s = _2s._osl ().join (''); return __1 + __2s;},
+    rewrites: function (_1) { var __1 = _1._osl (); return __1; },
     rw1: function (_1, _2s, codeQ, _3, _4, _5s) {
-	var __2 = _2s._glue ().join ('');
-	var code = codeQ._glue ();
-	var __3 = _3._glue ();
+	var __2 = _2s._osl ().join ('');
+	var code = codeQ._osl ();
+	var __3 = _3._osl ();
 	if (0 === code.length) {
   	    return `${__2}${__3}`;
 	} else {
@@ -139,23 +139,23 @@ return _result;
   	    return `${code}${__3}`;
 	}
     },
-    rw2: function (_1) { var __1 = _1._glue (); return __1; },
-    letter1: function (_1) { var __1 = _1._glue (); return __1; },
-    letterRest: function (_1) { var __1 = _1._glue (); return __1; },
+    rw2: function (_1) { var __1 = _1._osl (); return __1; },
+    letter1: function (_1) { var __1 = _1._osl (); return __1; },
+    letterRest: function (_1) { var __1 = _1._osl (); return __1; },
 
-    ws: function (_1) { var __1 = _1._glue (); return __1; },
+    ws: function (_1) { var __1 = _1._osl (); return __1; },
     delimiter: function (_1) { return ""; },
 
-    rwstring: function (_1s) { var __1s = _1s._glue ().join (''); return __1s; },
-    stringchar: function (_1) { var __1 = _1._glue (); return __1; },
-    rwstringWithNewlines: function (_1s) { var __1s = _1s._glue ().join (''); return __1s; },
-    nlstringchar: function (_1) { var __1 = _1._glue (); return __1; },
+    rwstring: function (_1s) { var __1s = _1s._osl ().join (''); return __1s; },
+    stringchar: function (_1) { var __1 = _1._osl (); return __1; },
+    rwstringWithNewlines: function (_1s) { var __1s = _1s._osl ().join (''); return __1s; },
+    nlstringchar: function (_1) { var __1 = _1._osl (); return __1; },
 
-    code: function (_1, _2s, _3, _4, _5s) { return _3._glue (); },
-    codeString: function (_1) { return _1._glue (); },
+    code: function (_1, _2s, _3, _4, _5s) { return _3._osl (); },
+    codeString: function (_1) { return _1._osl (); },
 
     // Ohm v16 requires ...children, previous versions require no ...
-    _iter: function (...children) { return children.map(c => c._glue ()); },
+    _iter: function (...children) { return children.map(c => c._osl ()); },
     _terminal: function () { return this.sourceString; }
 };
 
@@ -291,9 +291,9 @@ function _ruleExit (ruleName) {
 
 
 function execTranspiler (source, grammar, semantics, errorMessage) {
-    // first pass - transpile glue code to javascript
+    // first pass - transpile osl code to javascript
     try {
-	let generatedSCNSemantics = transpiler (semantics, glueGrammar, "_glue", glueSemantics, "in glue specification " + errorMessage);
+	let generatedSCNSemantics = transpiler (semantics, oslGrammar, "_osl", oslSemantics, "in osl specification " + errorMessage);
     _ruleInit();
 	try {
 	    if (argv.viewgen) {
@@ -304,7 +304,7 @@ function execTranspiler (source, grammar, semantics, errorMessage) {
 	    }
             let semObject = eval('(' + generatedSCNSemantics + ')');
 	    try {
-		let tr = transpiler(source, grammar, "_glue", semObject, errorMessage);
+		let tr = transpiler(source, grammar, "_osl", semObject, errorMessage);
 		return tr;
 	    } catch (err) {
 		throw err;
@@ -318,15 +318,15 @@ function execTranspiler (source, grammar, semantics, errorMessage) {
     }
 }
 
-function internal_stranspile (sourceString, grammarFileName, glueFileName, errorMessage) {
+function internal_stranspile (sourceString, grammarFileName, oslFileName, errorMessage) {
     var grammar = fs.readFileSync (grammarFileName, 'utf-8');
-    var glue = fs.readFileSync (glueFileName, 'utf-8');
-    var returnString = execTranspiler (sourceString, grammar, glue, errorMessage);
+    var osl = fs.readFileSync (oslFileName, 'utf-8');
+    var returnString = execTranspiler (sourceString, grammar, osl, errorMessage);
     return returnString;
 }
 
-function expand (s, grammarFileName, glueFileName, message) {
-    var result = internal_stranspile (s, grammarFileName, glueFileName, message);
+function expand (s, grammarFileName, oslFileName, message) {
+    var result = internal_stranspile (s, grammarFileName, oslFileName, message);
     return result;
 }
 
@@ -365,15 +365,15 @@ function splitOnSeparators (triggerSep, endSep, s) {
     }
 }
 
-function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message) {
+function expandAll (s, triggerRE, endRE, grammarFileName, oslFileName, message) {
     
     var {front, middle, rest} = splitOnSeparators (triggerRE, endRE, s);
 
     if (middle === '') {
 	return front;
     } else {
-	var expandedText = expand (middle, grammarFileName, glueFileName, message);
-	return front + expandAll (expandedText + rest, triggerRE, endRE, grammarFileName, glueFileName, message);
+	var expandedText = expand (middle, grammarFileName, oslFileName, message);
+	return front + expandAll (expandedText + rest, triggerRE, endRE, grammarFileName, oslFileName, message);
     }
 }
 
@@ -382,7 +382,7 @@ function seml (allchars) {
     var reTrigger = new RegExp (argv._[0]);
     var reEnd = new RegExp (argv._[1]);
     var grammarFileName = argv._[2];
-    var glueFileName = argv._[3];
+    var oslFileName = argv._[3];
 
     if (argv.support) {
 	support = require (argv.support);
@@ -392,7 +392,7 @@ function seml (allchars) {
 	traceDepth = 0; // enabled by --tracing on command line
     }
 
-    var expanded = expandAll (allchars, reTrigger, reEnd, grammarFileName, glueFileName, 'parsing input');
+    var expanded = expandAll (allchars, reTrigger, reEnd, grammarFileName, oslFileName, 'parsing input');
     return expanded;
 }
 

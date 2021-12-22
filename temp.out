@@ -1,0 +1,198 @@
+viewgen 2
+[ execTranspiler
+
+{
+
+Main : function (_sharps,_kforall,_ident,_kas,_predicate,_ws,_nl,_ident2,_keq,_kcond,_CondClauses,_CondElse) { 
+_ruleEnter ("Main");
+support.pushIdent (_ident2._glue ()); 
+var sharps = _sharps._osl ().join ('');
+var kforall = _kforall._osl ();
+var ident = _ident._osl ();
+var kas = _kas._osl ();
+var predicate = _predicate._osl ();
+var ws = _ws._osl ().join ('');
+var nl = _nl._osl ().join ('');
+var ident2 = _ident2._osl ();
+var keq = _keq._osl ();
+var kcond = _kcond._osl ();
+var CondClauses = _CondClauses._osl ().join ('');
+var CondElse = _CondElse._osl ();
+var _result = `${sharps} query\n${predicate}\n(${CondClauses} ${CondElse})\n`; 
+_ruleExit ("Main");
+return _result; 
+},
+            
+predicate : function (_ident,_klpar,_actuals,_krpar,_ws) { 
+_ruleEnter ("predicate");
+
+var ident = _ident._osl ();
+var klpar = _klpar._osl ();
+var actuals = _actuals._osl ();
+var krpar = _krpar._osl ();
+var ws = _ws._osl ().join ('');
+var _result = `${ident}${klpar}${actuals}${krpar} `; 
+_ruleExit ("predicate");
+return _result; 
+},
+            
+CondClause : function (_guard,_val) { 
+_ruleEnter ("CondClause");
+
+var guard = _guard._osl ();
+var val = _val._osl ();
+var _result = `${guard} -> ${support.getIdent()} = ${val};`; 
+_ruleExit ("CondClause");
+return _result; 
+},
+            
+CondElse : function (_kelse,_val) { 
+_ruleEnter ("CondElse");
+
+var kelse = _kelse._osl ();
+var val = _val._osl ();
+var _result = `${support.getIdent ()} = ${val}`; 
+_ruleExit ("CondElse");
+return _result; 
+},
+            
+guard : function (_predicate) { 
+_ruleEnter ("guard");
+
+var predicate = _predicate._osl ();
+var _result = `${predicate}`; 
+_ruleExit ("guard");
+return _result; 
+},
+            
+value : function (_line) { 
+_ruleEnter ("value");
+
+var line = _line._osl ();
+var _result = `${line}`; 
+_ruleExit ("value");
+return _result; 
+},
+            
+actuals_parenthesized : function (_klpar,_actuals,_krpar) { 
+_ruleEnter ("actuals_parenthesized");
+
+var klpar = _klpar._osl ();
+var actuals = _actuals._osl ();
+var krpar = _krpar._osl ();
+var _result = `${klpar}${actuals}${krpar}`; 
+_ruleExit ("actuals_parenthesized");
+return _result; 
+},
+            
+actuals_raw : function (_notPAREN) { 
+_ruleEnter ("actuals_raw");
+
+var notPAREN = _notPAREN._osl ().join ('');
+var _result = `${notPAREN}`; 
+_ruleExit ("actuals_raw");
+return _result; 
+},
+            
+line : function (_notNL,_nl) { 
+_ruleEnter ("line");
+
+var notNL = _notNL._osl ().join ('');
+var nl = _nl._osl ();
+var _result = `${notNL}`; 
+_ruleExit ("line");
+return _result; 
+},
+            
+notPAREN : function (_c) { 
+_ruleEnter ("notPAREN");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("notPAREN");
+return _result; 
+},
+            
+ident : function (_c,_cs) { 
+_ruleEnter ("ident");
+
+var c = _c._osl ();
+var cs = _cs._osl ().join ('');
+var _result = `${c}${cs}`; 
+_ruleExit ("ident");
+return _result; 
+},
+            
+firstChar : function (_c) { 
+_ruleEnter ("firstChar");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("firstChar");
+return _result; 
+},
+            
+restChar : function (_c) { 
+_ruleEnter ("restChar");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("restChar");
+return _result; 
+},
+            
+nl : function (_c) { 
+_ruleEnter ("nl");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("nl");
+return _result; 
+},
+            
+sharp : function (_c) { 
+_ruleEnter ("sharp");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("sharp");
+return _result; 
+},
+            
+notNL : function (_c) { 
+_ruleEnter ("notNL");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("notNL");
+return _result; 
+},
+            
+ws : function (_c) { 
+_ruleEnter ("ws");
+
+var c = _c._osl ();
+var _result = `${c}`; 
+_ruleExit ("ws");
+return _result; 
+},
+            
+_terminal: function () { return this.sourceString; },
+_iter: function (...children) { return children.map(c => c._osl ()); }
+}
+execTranspiler ]
+/Users/tarvydas/projects/osl/osl.js:317
+	throw err;
+	^
+
+TypeError: _ident2._glue is not a function
+    at Semantics.Wrapper.Main (eval at execTranspiler (/Users/tarvydas/projects/osl/osl.js:305:29), <anonymous>:6:28)
+    at Operation.execute (/Users/tarvydas/projects/node_modules/ohm-js/src/Semantics.js:662:25)
+    at Semantics.Wrapper.doIt [as _osl] (/Users/tarvydas/projects/node_modules/ohm-js/src/Semantics.js:440:27)
+    at transpiler (/Users/tarvydas/projects/osl/osl.js:190:42)
+    at execTranspiler (/Users/tarvydas/projects/osl/osl.js:307:12)
+    at internal_stranspile (/Users/tarvydas/projects/osl/osl.js:324:24)
+    at expand (/Users/tarvydas/projects/osl/osl.js:329:18)
+    at expandAll (/Users/tarvydas/projects/osl/osl.js:375:21)
+    at seml (/Users/tarvydas/projects/osl/osl.js:395:20)
+    at main (/Users/tarvydas/projects/osl/osl.js:401:18)

@@ -1,2 +1,2 @@
 # example only - use "seml" for production
-./osl forall.ohm forall.glue <in.md
+./osl '#+ forall ' '#+ ' forall.ohm forall.osl <in.md >preprocessed.md

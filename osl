@@ -1,0 +1,4 @@
+#!/bin/bash
+osldir=`pwd`
+node ${osldir}/osl.js "$1" "$2" "$3" "$4" ${osldir}/support.js
+

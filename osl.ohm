@@ -1,0 +1,51 @@
+SemanticsSCL {
+  Semantics = SemanticsStatement+
+  SemanticsStatement = ruleName "[" Parameters "]" "=" "{" dynamicIdentifier* Downcode Upcode "}"
+
+  ruleName = identifier
+  
+  Parameters = Parameter*
+  Parameter
+    = "@" identifier  -- iter
+    |     identifier   -- flat
+
+  Downcode 
+    = "{" "}"                -- empty
+    | "{" DownStatement+ "}"  -- withCode
+  Upcode 
+    = "{" "}"                -- empty
+    | "{" UpStatement+ "}"   -- withCode
+
+  dynamicIdentifier = identifier
+
+  DownStatement = downcode* ";"
+  UpStatement = upcode* ";"
+
+  downcode
+    = string                   -- string
+    | ~";" ~("}" space* "{") any -- other
+
+  upcode
+    = string                   -- string
+    | ~";" ~("}" space* "}") any -- other
+
+
+  identifier = idfirst idrest*
+  idfirst = "a" .. "z" | "A" .. "Z" | "_"
+  idrest = "0" .. "9" | idfirst
+
+  string
+    = sq (~sq any)* sq
+    | dq (~dq any)* dq
+    | bq (~bq any)* bq
+
+  sq = "'"
+  dq = "\""
+  bq = "`"
+  
+  comment = "#" (~nl any)* nl
+  space += comment
+  nl = "\n"
+}
+
+

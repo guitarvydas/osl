@@ -1,0 +1,62 @@
+Main [klb ComponentList krb] = { {} {} }
+
+ComponentList [@Components]
+  = { {} {. = Components; writeComponentList (); }}
+    
+Component [klb ComponentObject krb]
+  = { {} {. = ComponentObject; }}
+
+ComponentObject [klb Children Connections ID Inputs Outputs Name SyncCode krb]
+  = {
+      {}
+      {
+        .children = Children;
+	.connections = Connections;
+	.id = ID;
+	.inputs = Inputs;
+	.outputs = Outputs;
+	.name = Name;
+	.syncCode = SyncCode;
+      }
+    }
+    
+ChildrenField [dq1 k dq2 kcolon klb ChildrenNames krb]
+  = { {} { . = childrenNames; }}
+
+ConnectionsField [dq1 k dq2 kcolon klb ConnectionList krb]
+  = { {} {. = ConnectionList; }}
+  
+IDField [dq1 k dq2 kcolon Name] = { {} {. = Name; }}
+NameField [dq1 k dq2 kcolon Name] = { {} {. = Name; }} 
+
+SyncCodeField [dq1 k dq2 kcolon str] = { {} {. = str;}}
+
+InputsField [dq1 k dq2 kcolon klb names krb] = {{} {. = names;}}
+OutputsField [dq1 k dq2 kcolon klb names krb] = {{} {. = names;}}
+
+
+ConnectionList [@Connections] = {{} {. = Connections;}}
+
+Connection [klb ReceiverList SenderList krb] 
+  = {{} {.sender = SenderList ; .receiver = ReceiverList;}}
+
+ReceiverList [lb @Receivers rb] = {{} {. = Receivers;}}
+Receiver [lb dq1 kreceiver dq2 kcolon Pair rb] = {{}{.=Pair;}}
+SenderList [lb @Senders rb] = {{}{.=Senders;}}
+Sender [lb dq1 ksender dq2 kcolon Pair rb] = {{}{.=Pair;}}
+
+Pair [klb dq1 kcomponent kdq2 kcolon name1 dq3 kport dq4 kcolon2 name2 krb] 
+  = {{}{.component = name1; .port=name2;}}
+
+NamesList [@names] = {{}{.=names;}}
+
+InputNames [names] = {{}{.=names;}}
+OutputNames [names] = {{}{.=names;}}
+ChildrenNames [names] = {{}{.=names;}}
+
+name [s] = {{}{.=`${s};}}
+string [q1 @notDQ q2] = {{}{.=`${notDQ}`;}}
+dq [c] = {{}{.=`${c}`;}}
+notDQ [c] = {{}{.=`${c}`;}}
+space [c] = {{}{.=`${c}`;}}
+

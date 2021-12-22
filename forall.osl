@@ -1,8 +1,9 @@
 Main [@sharps kforall ident kas predicate @ws @nl ident2 keq kcond @CondClauses CondElse]
-  = {{ support.pushIdent (_ident2._osl ()); }}
+= {{ support.pushIdent (_ident2._osl ()); }}
     [[${sharps} query\n${predicate}\n(${CondClauses} ${CondElse})\n]]
 
-predicate [ident klpar actuals krpar @ws] = [[${ident}${klpar}${actuals}${krpar} ]]
+%% comment
+predicate [ident klpar actuals krpar @ws] = [[${ident}${klpar}${actuals}${krpar} ]] %% second comment
 CondClause [guard val] = [[${guard} -> ${support.getIdent()} = ${val};]]
 CondElse [kelse val] = [[${support.getIdent ()} = ${val}]]
 

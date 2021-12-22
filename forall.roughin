@@ -1,0 +1,30 @@
+Main [@sharps kforall ident kas predicate @ws @nl ident2 keq kcond @CondClauses CondElse]
+= { Identifier
+    { Identifier = ?ident2; }
+    { 
+      Main = `${sharps} query\n${predicate}\n(${CondClauses} ${CondElse})\n`;
+    }
+  }
+
+%% comment
+predicate [ident klpar actuals krpar @ws] = { {} {_ = `${ident}${klpar}${actuals}${krpar}`;} } %% second comment
+CondClause [guard val] = { {} {_ = `${guard} -> ${Identifier} = ${val}`;}}
+CondElse [kelse val] = { {} {_ = `${Identifier} = ${val}`;}}
+
+guard [predicate] = { {} {_ = `${predicate}`;}}
+value [line] = { {} {_= `${line}`;}
+
+actuals_parenthesized [klpar actuals krpar] = { {} {_ = `${klpar}${actuals}${krpar}`;}}
+actuals_raw [@notPAREN] = { {} {_ = `${notPAREN}`;}}
+
+line [@notNL nl] = { {} {_ = ${notNL}`;}
+
+notPAREN [c] = { {} {_ = ${c}`;}}
+
+  ident [c @cs] = { {} {_ = `${c}${cs}`; }}
+  firstChar [c] = { {} {_ = `${c}`; }}
+  restChar [c] = { {} {_ = `${c}`; }}
+  nl [c] = { {} {_ = `${c}`; }}
+  sharp [c] = { {} {_ = `${c}`; }}
+  notNL [c] = { {} {_ = `${c}`; }}
+  ws [c] = { {} {_ = `${c}`; }}

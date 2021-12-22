@@ -1,0 +1,45 @@
+[
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_11",
+      "inputs": ["in" ],
+      "name":"world",
+      "outputs": [],
+      "synccode":"print (&quot;world&quot;)&lt;br&gt;&lt;div&gt;&lt;/div&gt;"
+    }
+  ],
+  [
+    {
+      "children": ["world", "hello" ],
+	"connections":
+	[
+	    [
+		[
+		    {"receiver": {"component":"world", "port":"in"}}
+		],
+		[
+		    {"sender": {"component":"hello", "port":"out"}}
+		]
+	    ]
+	],
+      "id":"cell_6",
+      "inputs": [],
+      "name":"helloworld",
+      "outputs": ["_" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_7",
+      "inputs": ["_"],
+      "name":"hello",
+      "outputs": ["out"],
+      "synccode":"print (&quot;hello&quot;)&lt;br&gt;self.send (&quot;out&quot;, True)&lt;br&gt;&lt;div&gt;&lt;/div&gt;"
+    }
+  ]
+]

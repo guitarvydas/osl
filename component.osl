@@ -1,0 +1,72 @@
+Main [klb ComponentList krb] = [[]]
+
+ComponentList [@Components]
+  = {{ support.componentList_newscope (); }}
+    [[${support.componentList_setfrom_component ()}
+      ${support.writeComponentList ()}]]
+    
+Component [klb ComponentObject krb]
+  = {{ support.component_newscope (); }}
+    [[${support.component_setfrom_componentObject ()}]]
+
+ComponentObject [klb Children Connections ID Inputs Outputs Name SyncCode krb]
+  = {{ support.componentObject_newscope (); }}
+    [[
+      ${support.componentObject_setfield_children_from_childrenField ()}
+      ${support.componentObject_setfield_connections_from_connectionsField ()}
+      ${support.componentObject_setfield_id_from_idField ()}
+      ${support.componentObject_setfield_inputs_from_inputsField ()}
+      ${support.componentObject_setfield_outputs_from_outputsField ()}
+      ${support.componentObject_setfield_name_from_nameField ()}
+      ${support.componentObject_setfield_syncCode_from_syncCodeField ()}
+    ]]
+    
+ChildrenField [dq1 k dq2 kcolon klb ChildrenNames krb]
+  = {{ support.childrenField_newscope (); }} [[${support.childrenField_setfrom_childrenNames ()} ]]
+
+ConnectionsField [dq1 k dq2 kcolon klb ConnectionList krb]
+  = {{ support.connectionsField_newscope (); }} [[${support.connectionsField_setfrom_connectionList ()} ]]
+  
+IDField [dq1 k dq2 kcolon s] = {{ support.idField_newscope (); }} [[${support.idField_setfrom_name ()}  ]]
+NameField [dq1 k dq2 kcolon s] = {{ support.nameField_newscope (); }} [[${support.nameField_setfrom_name ()} ]]
+
+SyncCodeField [dq1 k dq2 kcolon s] = {{ support.syncCodeField_newscope (); }} [[${support.syncCodeField_setfrom_string ()} ]]
+
+InputsField [dq1 k dq2 kcolon klb names krb] = {{ support.inputsField_newscope (); }} [[${support.inputsField_setfrom_inputNames ()} ]]
+OutputsField [dq1 k dq2 kcolon klb names krb] = {{ support.outputsField_newscope (); }} [[${support.outputsField_setfrom_outputNames ()} ]]
+
+
+ConnectionList [@Connections] = {{ support.connectionList_newscope (); }} [[${support.connectionList_setfrom_connection ()}]]
+
+Connection [klb ReceiverList SenderList krb] 
+  = {{ support.connection_newscope (); }}
+    [[${support.connection_setfield_sender_from_senderList ()}
+      ${support.connection_setfield_receiver_from_receiverList ()}]]
+
+ReceiverList [lb @Receiver rb] = {{ support.receiverList_newscope (); }} [[${support.receiverList_setfrom_receiver ()}]]
+Receiver [lb dq1 kreceiver dq2 kcolon Pair rb] 
+  = {{ support.receiver_newscope (); }}
+    [[${support.receiver_setfrom_pair ()}]]
+SenderList [lb @Sender rb] = {{ support.senderList_newscope (); }} [[${support.senderList_setfrom_sender ()}]]
+Sender [lb dq1 ksender dq2 kcolon Pair rb]
+  = {{support.sender_newscope (); }}
+    [[${support.sender_setfrom_pair ()}]]
+
+Pair [klb dq1 kcomponent kdq2 kcolon name1 dq3 kport dq4 kcolon2 name2 krb]
+  = {{ support.pair_newscope (); }}
+    [[${support.pair_setfield_port_from_name ()}${support.pair_setfield_component_from_name ()} ]]
+
+NamesList [@names] = {{ support.namesList_newscope (); }} [[${support.namesList_appendfrom_name ()}]]
+
+InputNames [names]
+  = {{ support.inputNames_newscope (); }} [[${support.inputNames_setfrom_namesList ()}]]
+OutputNames [names]
+  = {{ support.outputNames_newscope (); }} [[${support.outputNames_setfrom_namesList ()}]]
+ChildrenNames [names]
+  = {{ support.childrenNames_newscope (); }} [[${support.childrenNames_setfrom_namesList ()}]]
+
+name [s] = {{ support.name_newscope (); }} [[${support.name_setfrom_string ()}]]
+string [q1 @notDQ q2] = {{ support.string_newscope ()}} [[${support.string_set (notDQ)}]]
+dq [c] = [[${c}]]
+notDQ [c] = [[${c}]]
+space [c] = [[{$c}]]

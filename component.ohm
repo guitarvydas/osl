@@ -1,0 +1,46 @@
+components {
+  Main = "[" ComponentList "]"
+  ComponentList = Component+
+  Component = "[" ComponentObject "]"
+  ComponentObject =
+    "{"
+      ChildrenField
+      ConnectionsField
+      IDField
+      InputsField
+      NameField
+      OutputsField
+      SyncCodeField
+    "}"
+    
+  ChildrenField
+    = dq "children" dq ":" "[" ChildrenNames "]"
+
+  ConnectionsField = dq "connections" dq ":" "[" ConnectionList "]"
+  
+  IDField = dq "id" dq ":" name
+  InputsField = dq "inputs" dq ":" "[" InputNames "]"
+  OutputsField = dq "outputs" dq ":" "[" OutputNames "]"
+  NameField = dq "name" dq ":" name
+  SyncCodeField = dq "synccode" dq ":" string
+
+  ConnectionList = Connection*
+  Connection = "[" ReceiverList SenderList "]"
+  SenderList = "[" Sender+ "]"
+  Sender = "{" dq "sender" dq ":" Pair "}"
+  ReceiverList = "[" Receiver+ "]"
+  Receiver = "{" dq "receiver" dq ":" Pair "}"
+
+  Pair = "{" dq "component" dq ":" name dq "port" dq ":" name "}" 
+  
+  NamesList = name*
+  InputNames = NamesList
+  OutputNames = NamesList
+  ChildrenNames = NamesList
+  
+  name = string
+  string = dq notDQ* dq
+  dq = "\""
+  notDQ = ~dq any
+  space += ","
+}

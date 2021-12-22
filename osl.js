@@ -3,8 +3,6 @@
 
 var argv = require('yargs/yargs')(process.argv.slice(2)).argv;
 
-var traceDepth;
-
 const fs = require ('fs');
 
 var reTrigger;
@@ -382,21 +380,29 @@ function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message)
 }
 
 function seml (allchars) {
+// ---
+//     var sourceFileName = argv._[0];
+//     var grammarFileName = argv._[1];
+//     var actionFileName = argv._[2];
+//     if (argv.support) {
+// 	support = require (argv.support);
+//     }
+// ---
     var args = process.argv;
-    var reTrigger = new RegExp (args[2]);
-    var reEnd = new RegExp (args[3]);
-    var grammarFileName = args[4];
-    var glueFileName = args[5];
-    var supportFileName = args[6];
+    var reTrigger = new RegExp (argv._[0]);
+    var reEnd = new RegExp (argv._[1]);
+    var grammarFileName = argv._[2];
+    var glueFileName = argv._[3];
 
-    support = require (supportFileName);
-    if (args.length >= 8) {
-	var traceFlag = args[7];
-	if (traceFlag === 't') {
-	    tracing = true;
-	    traceDepth = 0;
-	}
+    if (argv.support) {
+	support = require (argv.support);
     }
+
+    if (argv.tracing) {
+	tracing = true;
+	traceDepth = 0; // enabled by --tracing on command line
+    }
+
     var expanded = expandAll (allchars, reTrigger, reEnd, grammarFileName, glueFileName, 'parsing input');
     return expanded;
 }

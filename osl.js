@@ -19,7 +19,7 @@ var support;
 const glueGrammar =
       String.raw`
 SemanticsSCL {
-  semantics = ws* semanticsStatement+
+  Semantics = semanticsStatement+
   semanticsStatement = ruleName ws* "[" ws* parameters "]" ws* "=" ws* code? rewrites ws*
 
   ruleName = letter1 letterRest*
@@ -65,12 +65,11 @@ var varNameStack = [];
 
 
 var glueSemantics = {	
-    semantics: function (_1s, _2s) { 
+    Semantics: function (_1s) { 
 	var __1s = _1s._glue ().join (''); 
-	var __2s = _2s._glue ().join (''); 
 	return `
 {
-${__2s}
+${__1s}
 _terminal: function () { return this.sourceString; },
 _iter: function (...children) { return children.map(c => c._glue ()); }
 }`; 

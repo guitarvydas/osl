@@ -9,7 +9,6 @@ var reTrigger;
 var reEnd;
 
 
-var viewGeneratedCode = false;
 var traceDepth;
 
 var ohm = require ('ohm-js');
@@ -297,7 +296,8 @@ function execTranspiler (source, grammar, semantics, errorMessage) {
 	let generatedSCNSemantics = transpiler (semantics, glueGrammar, "_glue", glueSemantics, "in glue specification " + errorMessage);
     _ruleInit();
 	try {
-	    if (viewGeneratedCode) {
+	    if (argv.viewgen) {
+		console.error("viewgen 2");
 		console.error ("[ execTranspiler");
 		console.error (generatedSCNSemantics);
 		console.error ("execTranspiler ]");
@@ -378,14 +378,6 @@ function expandAll (s, triggerRE, endRE, grammarFileName, glueFileName, message)
 }
 
 function seml (allchars) {
-// ---
-//     var sourceFileName = argv._[0];
-//     var grammarFileName = argv._[1];
-//     var actionFileName = argv._[2];
-//     if (argv.support) {
-// 	support = require (argv.support);
-//     }
-// ---
     var args = process.argv;
     var reTrigger = new RegExp (argv._[0]);
     var reEnd = new RegExp (argv._[1]);

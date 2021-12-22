@@ -10,7 +10,6 @@ var reEnd;
 
 
 var viewGeneratedCode = false;
-var tracing = false;
 var traceDepth;
 
 var ohm = require ('ohm-js');
@@ -270,7 +269,7 @@ function traceSpaces () {
 }
 
 function _ruleEnter (ruleName) {
-    if (tracing) {
+    if (argv.tracing) {
 	traceDepth += 1;
 	traceSpaces ();
 	process.stderr.write("enter: ");
@@ -281,7 +280,7 @@ function _ruleEnter (ruleName) {
 }
 
 function _ruleExit (ruleName) {
-    if (tracing) {
+    if (argv.tracing) {
 	traceSpaces ();
 	traceDepth -= 1;
 	process.stderr.write("exit: "); 
@@ -398,7 +397,6 @@ function seml (allchars) {
     }
 
     if (argv.tracing) {
-	tracing = true;
 	traceDepth = 0; // enabled by --tracing on command line
     }
 

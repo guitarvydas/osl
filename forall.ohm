@@ -1,11 +1,11 @@
 forall {
-  Main = sharp+ "forall" ident "as" predicate ws* nl* ident "=" "cond" CondClause+ CondElse
+  Main = sharp+ "forall" ident "as" Predicate ident "=" "cond" CondClause+ CondElse
 
-  predicate = ident "(" actuals ")" ws*
-  CondClause = guard value
+  Predicate = ident "(" actuals ")"
+  CondClause = Guard value
   CondElse = "else" value
 
-  guard = predicate
+  Guard = Predicate
   value = line
 
   actuals =   "(" actuals ")" -- parenthesized
@@ -21,5 +21,4 @@ forall {
     nl = "\n"
     sharp = "#"
     notNL = ~nl any
-    ws = " " | "\t"
 }

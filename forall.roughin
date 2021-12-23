@@ -6,8 +6,8 @@ Main [@sharps kforall ident kas predicate @ws @nl ident2 keq kcond @CondClauses 
     }
   }
 
-%% comment
-predicate [ident klpar actuals krpar @ws] = { {} {. = `${ident}${klpar}${actuals}${krpar}`;} } %% second comment
+# comment
+predicate [ident klpar actuals krpar @ws] = { {} {. = `${ident}${klpar}${actuals}${krpar}`;} } # second comment
 CondClause [guard val] = { {} {. = `${guard} -> ${Identifier} = ${val}`;}}
 CondElse [kelse val] = { {} {. = `${Identifier} = ${val}`;}}
 

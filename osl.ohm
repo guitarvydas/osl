@@ -9,12 +9,8 @@ SemanticsSCL {
     = "@" identifier  -- iter
     |     identifier   -- flat
 
-  Downcode 
-    = "{" "}"                -- empty
-    | "{" DownStatement+ "}"  -- withCode
-  Upcode 
-    = "{" "}"                -- empty
-    | "{" UpStatement+ "}"   -- withCode
+  Downcode = "{" DownStatement* "}"
+  Upcode   = "{" UpStatement* "}"
 
   dynamicIdentifier = identifier
 
@@ -22,11 +18,11 @@ SemanticsSCL {
   UpStatement = upcode* ";"
 
   downcode
-    = string                   -- string
+    = string                     -- string
     | ~";" ~("}" space* "{") any -- other
 
   upcode
-    = string                   -- string
+    = string                     -- string
     | ~";" ~("}" space* "}") any -- other
 
 

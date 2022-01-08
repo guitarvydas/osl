@@ -2,6 +2,15 @@
 
 Source code transpiler that works on blocks of text bracketed by REGEXPs, using PEG to transpile the blocks.
 
+# Do 1 Thing Well
+UNIX philosopy: "do one thing well"
+
+Yo need full composition - build-and-forget - to accomplish this.
+
+Functions and OO give only partial composition.
+
+Full composition requires encapsulating control flow, too.
+
 # Status
 in development
 
